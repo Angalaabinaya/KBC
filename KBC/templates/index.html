@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <style>
+        /* General reset for margin and padding */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('static/background.jpg') no-repeat center center/cover; /* Replace 'background.jpg' with your image path */
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+        }
+
+        /* Container for the buttons */
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6); /* Transparent overlay */
+            padding: 30px 50px;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Buttons styling */
+        .container a {
+            display: inline-block;
+            text-decoration: none;
+            background: #ff5722;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 30px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Hover effects for buttons */
+        .container a:hover {
+            background: #e64a19;
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Header title */
+        .container h1 {
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+        .container h1{
+            font-size:100px;
+        }
+
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url("https://fonts.cdnfonts.com/css/proclamate");
+@import url("https://fonts.googleapis.com/css2?family=Love+Ya+Like+A+Sister&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Satisfy&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* body {
+  height: 100vh;
+  width: 100%;
+  background: radial-gradient(#480d35, #17151d);
+  display: grid;
+  place-items: center; */
+/* } */
+h1 {
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  font-size: 7rem;
+  letter-spacing: -0.3rem;
+  z-index: 1;
+}
+h1 span {
+  margin: 0 auto;
+  margin-left: 0.3em;
+  display: inline-block;
+  position: relative;
+}
+h1 span:before {
+  content: "";
+  position: absolute;
+  top: -0.2em;
+  left: -0.2em;
+  width: 100%;
+  height: 100%;
+  padding: 0.2em;
+  z-index: -1;
+}
+h1 span:nth-child(1) {
+  font-family: "Proclamate Light", sans-serif;
+  text-transform: lowercase;
+  color: #ffc863;
+}
+h1 span:nth-child(1)::before {
+  background: #332929;
+  clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 83%);
+}
+h1 span:nth-child(2) {
+  font-style: italic;
+  font-family: "Playfair Display", serif;
+  color: #023020;
+  text-shadow: 0.02em 0.02em 0 #a52a2a, 0.03em 0.03em 0 #a52a2a;
+}
+h1 span:nth-child(2)::before {
+  background: #f5deb3;
+}
+h1 span:nth-child(3) {
+  font-family: "Satisfy", cursive;
+  font-weight: 400;
+  font-style: normal;
+  color: #28282B;
+}
+h1 span:nth-child(3)::before {
+  background: #a52a2a;
+  clip-path: polygon(20% 0%, 99% 0, 100% 100%, 0% 100%);
+}
+h1 span:nth-child(4) {
+  font-family: "Love Ya Like A Sister", cursive;
+  color: #22232e;
+}
+h1 span:nth-child(4)::before {
+  background-image: radial-gradient(rgba(0, 194, 203, 0.7) 3px, transparent 3px);
+  background-color: #e0ffff;
+  background-size: 10px 10px;
+  clip-path: polygon(20% 0%, 99% 0, 100% 100%, 0% 100%);
+}
+h1 span:nth-child(5) {
+  font-family: "Poppins", serif;
+  color: #00c2cb;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-stroke: 0.07em rgba(237, 10, 139, 0.7);
+}
+h1 span:nth-child(5)::before {
+  background: rgba(0, 194, 203, 0.7);
+  clip-path: polygon(0 24%, 100% 20%, 100% 86%, 0 82%);
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <span>Q</span>
+            <span>u</span>
+            <span>i</span>
+            <span>z</span>
+            <span>A</span>
+            <span>P</span>
+            <span>P</span>
+        </h1>
+        <a href="/instruction">Instruction</a>
+        <a href="/register">Play</a>
+        <a href="/quit">Quit</a>
+    </div>
+    <!-- Add this code just inside the <body> tag -->
+
+<audio autoplay loop>
+    <source src="/static/song/bgm.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
+
+<script>
+    // Check if the current page is the result page
+    if (window.location.pathname === '/result') {
+        document.querySelector("audio").pause(); // Pause if on result page
+    }
+</script>
+
+</body>
+</html>

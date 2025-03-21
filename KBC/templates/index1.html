@@ -1,0 +1,400 @@
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBC UI Design</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle, #1e0145, #000000);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            width: 500px;
+            height: auto;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .button {
+            background: linear-gradient(to bottom, #001a4d, #0047ab);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body style="display: flex;flex-direction: column;">
+    <div class="container">
+        <h1>KAUN BANEGA CROREPATI GAME</h1>
+        <div class="logo">
+            <img src="static/header1.png" alt="KBC Logo">
+        </div>
+        
+    </div>
+    <div class="buttons" style="    width: 100%;display: flex;justify-content: space-evenly;">
+        <button class="button" onclick="window.location.href='/instruction'">Instructions</button>
+        <button class="button" onclick="window.location.href='/register'" style="    width: 163px;">Play</button>
+        <button class="button" onclick="quitGame()" style="    width: 163px;">Quit</button>
+    </div>
+    <audio autoplay loop>
+        <source src="/static/song/background.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        function quitGame() {
+            window.close;
+
+    }
+    </script>
+</body>
+</html> -->
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBC UI Design</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle, #1e0145, #000000);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            width: 500px;
+            height: auto;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .button {
+            background: linear-gradient(to bottom, #001a4d, #0047ab);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .audio-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .audio-toggle:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .audio-toggle:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>KAUN BANEGA CROREPATI GAME</h1>
+        <div class="logo">
+            <img src="static/header1.png" alt="KBC Logo">
+        </div>
+        
+    </div>
+    <div class="buttons" style="width: 100%;display: flex;justify-content: space-evenly;">
+        <button class="button" onclick="window.location.href='/instruction'">Instructions</button>
+        <button class="button" onclick="window.location.href='/register'" style="width: 163px;">Play</button>
+        <button class="button" onclick="quitGame()" style="width: 163px;">Quit</button>
+    </div>
+    
+    <audio id="background-audio" autoplay loop>
+        <source src="/static/song/background.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+
+    <button class="audio-toggle" id="audio-toggle" onclick="toggleAudio()">Disable Music</button>
+
+    <script>
+        function quitGame() {
+            window.close();
+        }
+
+        function toggleAudio() {
+            const audioElement = document.getElementById('background-audio');
+            const toggleButton = document.getElementById('audio-toggle');
+
+            if (audioElement.paused) {
+                audioElement.play();
+                toggleButton.innerHTML = "Disable Music";
+            } else {
+                audioElement.pause();
+                toggleButton.innerHTML = "Enable Music";
+            }
+        }
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBC UI Design</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle, #1e0145, #000000);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            width: 500px;
+            height: auto;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .button {
+            background: linear-gradient(to bottom, #001a4d, #0047ab);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .audio-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .audio-toggle:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .audio-toggle:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>KAUN BANEGA CROREPATI GAME</h1>
+        <div class="logo">
+            <img src="static/header1.png" alt="KBC Logo">
+        </div>
+        
+    </div>
+    <div class="buttons" style="width: 100%;display: flex;justify-content: space-evenly;">
+        <button class="button" onclick="window.location.href='/instruction'">Instructions</button>
+        <button class="button" onclick="window.location.href='/register'" style="width: 163px;">Play</button>
+        <button class="button" onclick="quitGame()" style="width: 163px;">Quit</button>
+    </div>
+    
+    <audio id="background-audio" autoplay loop>
+        <source src="/static/song/background.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Toggle Audio Button -->
+    <!-- <button class="audio-toggle" id="audio-toggle" onclick="toggleAudio()">Disable Music</button> -->
+
+    <script>
+        // Check if background music is disabled in localStorage
+        if (localStorage.getItem('audioDisabled') === 'true') {
+            document.getElementById('background-audio').pause();
+            document.getElementById('audio-toggle').innerHTML = "Enable Music";
+        }
+
+        // Function to toggle background audio
+        function toggleAudio() {
+            const audioElement = document.getElementById('background-audio');
+            const toggleButton = document.getElementById('audio-toggle');
+
+            if (audioElement.paused) {
+                audioElement.play();
+                toggleButton.innerHTML = "Disable Music";
+                localStorage.setItem('audioDisabled', 'false');
+            } else {
+                audioElement.pause();
+                toggleButton.innerHTML = "Enable Music";
+                localStorage.setItem('audioDisabled', 'true');
+            }
+        }
+
+        // Function to close the window (for the Quit button)
+        function quitGame() {
+            window.close();
+        }
+    </script>
+</body>
+</html>

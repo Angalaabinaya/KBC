@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question {{ question.id }}</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            /* height: 100%; */
+            width: 100%;
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle, #1e0145, #000000);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            /* height: 100vh; */
+            
+            
+        }
+        body{
+            height: 100vh;
+        }
+        .header{
+            margin: 0;
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 14px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            color: #ffeb3b;
+            margin-left: 17%;
+        }
+
+        p {
+            margin: 15px 0;
+            padding: 4px;;
+            font-size: 1.2rem;
+            background: linear-gradient(to bottom, #001a4d, #0047ab);
+            border-radius: 25px;
+            color: white;
+        }
+
+        #timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #ff6f61;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .option {
+            background: linear-gradient(to bottom, #001a4d, #0047ab);
+            color: #fff;
+            padding: 8px;
+            margin: 10px;
+            flex: 1 1 calc(45% - 20px);
+            text-align: center;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .option:hover {
+            background: #50d2c2;
+        }
+
+        .option input[type="radio"] {
+            display: none;
+        }
+
+        .option.selected {
+            background: #ffeb3b;
+            color: #000;
+        }
+
+        input[type="submit"] {
+            padding: 10px 25px;
+            font-size: 1.2rem;
+            color: #fff;
+            background: #50d2c2;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+            margin-top: 20px;
+        }
+
+        input[type="submit"]:hover {
+            background: #4a90e2;
+        }
+
+        input[type="button"] {
+            padding: 10px 25px;
+            font-size: 1.2rem;
+            color: #fff;
+            background: #50d2c2;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+            margin-top: 20px;
+        }
+
+        input[type="button"]:hover {
+            background: #4a90e2;
+        }
+        .clue-link {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #ffeb3b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .clue-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Snowflake styling */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: #fff;
+            font-size: 1.2rem;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+        
+        .timer-container {
+            position: relative;
+            /* width: 200px; */
+            /* height: 0px; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 28%;
+        }
+
+        #timer-circle {
+            transform: rotate(-90deg); /* Rotate the circle to make the countdown start from the right */
+        }
+
+        #circle {
+            transition: stroke-dashoffset 1s linear;
+        }
+
+        .timer-text {
+            position: absolute;
+            font-size: 2rem;
+            color: #ff6f61;
+            font-weight: bold;
+        }
+
+
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+    <script>
+        let timeLeft = 40; // Timer in seconds
+        let totalTime = 40; // Total time for the countdown (needed for the stroke offset calculation)
+
+        function startTimer() {
+            const timerDisplay = document.getElementById('timer');
+            const circle = document.getElementById('circle');
+            const circumference = 2 * Math.PI * 90; // Circumference of the circle
+            const interval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    // Redirect to the result page when time runs out
+                    window.location.href = '/timeout'; // Redirect to timeout handler
+                } else {
+                    timerDisplay.textContent = timeLeft; // Update the timer text
+
+                    // Calculate the offset based on time remaining
+                    const offset = circumference - (timeLeft / totalTime) * circumference;
+                    circle.style.strokeDashoffset = offset;
+
+                    // Start voice countdown when time is below 5 seconds
+                    if (timeLeft <= 5) {
+                        speakCountdown(timeLeft);
+                    }
+
+                    timeLeft--;
+                }
+            }, 1000);
+        }
+
+        function speakCountdown(seconds) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(seconds.toString());
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        window.onload = startTimer;
+
+
+        function selectOption(element) {
+            document.querySelectorAll('.option').forEach(option => option.classList.remove('selected'));
+            element.classList.add('selected');
+            element.querySelector('input').checked = true;
+        }
+        window.onload = startTimer;
+        function speakQuestion() {
+            if ('speechSynthesis' in window) {
+                const questionText = "{{ question.question_text }}"; // This will pull the question text from the template
+                const utterance = new SpeechSynthesisUtterance(questionText);
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('Sorry, your browser does not support speech synthesis.');
+            }
+        }
+
+        
+        function handleSubmission(correctOption) {
+    const selectedOption = document.querySelector('input[name="option"]:checked');
+    if (selectedOption) {
+        const selectedDiv = selectedOption.closest('.option');
+        if (selectedOption.value === correctOption) {
+            selectedDiv.style.backgroundColor = 'green'; // Correct answer
+            // Show the success modal
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'), {});
+            successModal.show();
+        } else {
+            selectedDiv.style.backgroundColor = 'red'; // Incorrect answer
+        }
+        setTimeout(function() {
+            document.querySelector('form').submit(); // Submit form after a delay
+        }, 5000);
+    }
+}
+
+       // Prevent going back to the previous page
+       history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.pushState(null, null, location.href);
+        };
+        
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</head>
+<body style="display: flex;flex-direction: column;">
+    <div class="header">
+        <div id="score-display" style="font-size: 1.2rem; font-weight: bold; color: #ffeb3b; margin-left: 20px; width: 200px;">
+            Score: {{ session['score'] }}
+        </div>
+            
+        <img src="/static/header1.png" alt="Your Photo" height="258" style="    margin-left: 18%;">
+        <div style="width: 60px; margin-left: 20%;">
+            
+        </div>        
+        {% if session['photo'] %}
+            <div>
+                <img src="/static/{{ session['photo'] }}" style="width: 100px; height: 100px; border-radius: 10px;">
+            </div>
+        {% endif %}
+
+        
+    </div>
+    
+    
+    
+    <div class="container">
+        <div style="display: flex">
+            <button onclick="speakQuestion()">🔊</button>
+            <h1>{{ session['questions_answered'] + 1 }}/7</h1>
+            <h1>Question</h1>
+            <div class="timer-container"  >
+                <svg id="timer-circle" width="50" height="50" viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="90" stroke="#ff6f61" stroke-width="10" fill="none" stroke-dasharray="565.48" stroke-dashoffset="0" id="circle"></circle>
+                </svg>
+                <div id="timer" class="timer-text" style="margin-top: 21px;">40</div>
+            </div>
+        </div>
+        
+        <p>{{ question.question_text }}</p>
+       
+        <form action="/question" method="post">
+            <div class="options">
+                {% if reduced_options %}
+                    {% for option, text in reduced_options.items() %}
+                        <div class="option" onclick="selectOption(this)">
+                            <input type="radio" name="option" value="{{ option }}" required>
+                            <span>{{ option }}: {{ text }}</span>s
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {% for option, text in options.items() %}
+                        <div class="option" onclick="selectOption(this)">
+                            <input type="radio" name="option" value="{{ option }}" required>
+                            <span>{{ option }}: {{ text }}</span>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div style="display: flex; justify-content: space-evenly; align-items: center;">
+               <!-- this is line of submit -->
+                 
+                <input style="display: flex; justify-content: space-evenly; align-items: center;" type="submit" value="Submit" onclick="handleSubmission('{{ question.correct_option }}')" >
+            </div>
+            
+        </form>
+        
+        {% if not clue_used and session['questions_answered'] < 7 %}
+            <a href="/use_clues" class="clue-link">Clue(50 - 50)</a>
+        {% endif %}
+    </div>
+    <div class="modal fade" id="correctAnswerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Congratulations!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ✓ Correct answer!
+                </div>
+                <div class="modal-footer" >
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" style="background-color: #001a4d;">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Check if we need to show the correct answer modal (only after answering, not when using clues)
+        {% if session.get('correct_answer', False) and not session.get('clue_used', False) %}
+        var correctAnswerModal = new bootstrap.Modal(document.getElementById('correctAnswerModal'));
+        correctAnswerModal.show();
+        {% endif %}
+    </script>
+    
+
+
+
+  
+  <!-- <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 10px; overflow: hidden; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);">
+        <div class="modal-header" style="background-color: #0047ab; color: white;">
+          <h5 class="modal-title" id="successModalLabel">Correct Answer!</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <i class="bi bi-check-circle-fill" style="font-size: 3rem; color: green;"></i>
+          <p class="mt-3" style="font-size: 1.2rem;">Congratulations! You have selected the correct answer.</p>
+        </div>
+       
+      </div>
+    </div>
+  </div> -->
+
+  
+   
+
+    <audio autoplay loop>
+        <source src="/static/song/clock.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        /* Reset and base styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle, #1e0145, #000000);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            
+            
+        }
+        body{
+            /* Background image settings */
+            background-image: url('/static/header1.png');
+            background-size: 1000px 800px; /* Set the width and height */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Avoid repeating the image */
+        }
+
+        /* Animated background */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .background span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            animation: animate 10s linear infinite;
+        }
+
+        .background span:nth-child(odd) {
+            animation-duration: 7s;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateX(20vw);
+                opacity: 0;
+            }
+        }
+
+        /* Container styling */
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+
+            
+        }
+
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #ffeb3b;
+            text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            font-size: 1.2rem;
+        }
+
+        input[type="text"], input[type="file"] {
+            width: 90%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+
+        button, input[type="submit"] {
+            padding: 12px 25px;
+            font-size: 1rem;
+            background: #50d2c2;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        button:hover, input[type="submit"]:hover {
+            background: #2575fc;
+            transform: scale(1.05);
+        }
+
+        video, canvas {
+            display: block;
+            margin: 15px auto;
+            border: 3px solid #fff;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <!-- Floating animation -->
+        <span style="left: 10%; animation-delay: 0s;"></span>
+        <span style="left: 30%; animation-delay: 2s;"></span>
+        <span style="left: 50%; animation-delay: 4s;"></span>
+        <span style="left: 70%; animation-delay: 1s;"></span>
+        <span style="left: 90%; animation-delay: 3s;"></span>
+    </div>
+
+    <!-- HTML and CSS Updates -->
+<div class="container">
+    <h2>Welcome to Kaun Banega Crorepati</h2>
+    <form action="/register" method="post" enctype="multipart/form-data">
+        <label for="name">Enter Your Name:</label>
+        <input type="text" name="name" id="name" placeholder="John Doe" required>
+
+        
+
+        <!-- Hidden video and canvas initially -->
+        <!-- <div id="camera-section" style="display: block;">
+            <video id="video" width="320" height="240" autoplay></video>
+            <button type="button" id="capture">Capture Photo</button>
+        </div>
+
+        <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+        <img id="captured-image" src="" alt="Captured Photo" style="display: none; width: 320px; height: 240px; border: 3px solid #fff; border-radius: 10px;    margin: 15px auto;">
+
+        <input type="hidden" name="captured_photo" id="captured_photo"> -->
+        <div id="camera-section" style="display: block;">
+            <label for="photo">Upload Your Photo:</label>
+            <input type="file" name="photo" id="photo" style="display: none;" required>
+            <video id="video" width="320" height="240" autoplay></video>
+            <button type="button" id="capture">Capture Photo</button>
+            <button type="button" id="skip" onclick="skipCamera()">Skip Camera</button> <!-- Skip button -->
+        </div>
+        
+        <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+        <img id="captured-image" src="" alt="Captured Photo" style="display: none; width: 320px; height: 240px; border: 3px solid #fff; border-radius: 10px; margin: 15px auto;">
+        
+        <input type="hidden" name="captured_photo" id="captured_photo">
+        
+
+        <input type="submit" value="Start Quiz">
+    </form>
+</div>
+
+<!-- JavaScript Updates -->
+<script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const captureButton = document.getElementById('capture');
+    const capturedPhotoInput = document.getElementById('captured_photo');
+    const capturedImage = document.getElementById('captured-image');
+    const cameraSection = document.getElementById('camera-section');
+
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+            video.srcObject = stream;
+            video.play();
+        });
+    }
+
+    captureButton.addEventListener('click', () => {
+        const context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0, 320, 240);
+        
+        // Get the image data URL
+        const dataURL = canvas.toDataURL('image/png');
+        capturedPhotoInput.value = dataURL;
+
+        // Hide video and display captured image
+        video.style.display = 'none';
+        captureButton.style.display = 'none';
+        capturedImage.src = dataURL;
+        capturedImage.style.display = 'block';
+
+        // Stop video stream
+        const stream = video.srcObject;
+        const tracks = stream.getTracks();
+        tracks.forEach(track => track.stop());
+        video.srcObject = null;
+
+        // Remove the 'required' attribute from file input
+        document.getElementById('photo').removeAttribute('required');
+    });
+</script>
+
+    <!-- Add this code just inside the <body> tag -->
+
+<audio autoplay loop>
+    <source src="/static/song/background.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
+
+<script>
+    // Check if the current page is the result page
+    if (window.location.pathname === '/result') {
+        document.querySelector("audio").pause(); // Pause if on result page
+    }
+
+    function skipCamera() {
+    // Stop the camera and hide the video section
+    const video = document.getElementById('video');
+    const captureButton = document.getElementById('capture');
+    const skipButton = document.getElementById('skip');
+    const cameraSection = document.getElementById('camera-section');
+    
+    // Stop the video stream
+    const stream = video.srcObject;
+    const tracks = stream.getTracks();
+    tracks.forEach(track => track.stop());
+    video.srcObject = null;
+
+    // Hide the video and the capture button
+    cameraSection.style.display = 'none';
+    captureButton.style.display = 'none';
+    skipButton.style.display = 'none';
+    
+    // Allow the user to proceed without a photo
+    document.getElementById('photo').removeAttribute('required');
+    
+}
+
+window.onload = function() {
+    document.getElementById('name').focus();
+};
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+        @import url('https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Exo:wght@900&display=swap');
+        body {
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle, #1e0145, #000000);
+            color: #fff;
+            margin: 33px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* height: 100vh; */
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 7rem;
+            font-family: 'Mr Dafoe';
+            margin: 0px 0;
+            color: #333333; /* Dark gray */
+            text-shadow: 0 0 10px #555555, 0 0 15px #444444, 0 0 20px #222222;
+            animation: winning-streak 2s infinite alternate;
+            
+            
+            }
+
+
+        img {
+            border: 5px solid #fff;
+            border-radius: 50%;
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            color: #fff;
+            background: #4a90e2;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            animation: glowing 1.5s infinite;
+            transition: background 0.3s ease-in-out;
+        }
+
+        a:hover {
+            background: #50d2c2;
+        }
+
+        .trophy {
+            font-size: 5rem;
+            color: #ffd700;
+            margin-bottom: 10px;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes winning-streak {
+            0% { text-shadow: 0 0 20px #ffeb3b, 0 0 30px #ffa726; }
+            100% { text-shadow: 0 0 20px #ff5722, 0 0 30px #ffab40; }
+        }
+
+        @keyframes glowing {
+            0% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); }
+            50% { box-shadow: 0 4px 25px rgba(255, 255, 255, 0.7); }
+            100% { box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Snowflake styling */
+        /* .snowflake {
+            position: absolute;
+            top: -5%;
+            font-size: 1.5rem;
+            color: #fff;
+            opacity: 0.8;
+            animation: fall linear infinite;
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+        } */
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) translateX(10vw);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="wrapper">
+            <div class="trophy">😢</div>
+            {% if score > 0 %}
+                <h1>Congrats {{ name }}!</h1>
+            {% else %}
+                <h1>Better Luck Next time {{ name }}!</h1>
+            {% endif %}
+        </div>
+        
+        
+        
+        {% if session['photo'] %}
+            <img src="/static/{{ session['photo'] }}" alt="Your Photo">
+        {% endif %}
+    
+        <p>Your final score is: <strong>{{ score }}</strong></p>
+        <a href="/">Back to Home</a>
+    </div>
+    
+
+    <!-- <audio autoplay>
+        <source src="/static/song/win.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio> -->
+
+    <!-- JavaScript to create snowfall effect -->
+    <!-- <script>
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.textContent = '✨';
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`; // Random fall speed
+            snowflake.style.opacity = Math.random(); // Random opacity
+            snowflake.style.transform = `scale(${Math.random() * 0.5 + 0.5})`; // Random size
+            document.body.appendChild(snowflake);
+
+            // Remove the snowflake after the animation ends
+            snowflake.addEventListener('animationend', () => {
+                snowflake.remove();
+            });
+        }
+
+        // Create multiple snowflakes at regular intervals
+        setInterval(createSnowflake, 200);
+
+         // Prevent going back to the previous page
+         history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.pushState(null, null, location.href);
+        };
+        
+    </script> -->
+</body>
+</html>

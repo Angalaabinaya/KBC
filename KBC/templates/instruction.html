@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBC App - Instructions</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle, #1e0145, #000000);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            
+            
+        }
+        body{
+            /* Background image settings */
+            background-image: url('/static/header1.png');
+            background-size: 1000px 800px; /* Set the width and height */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Avoid repeating the image */
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent overlay */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: 20px;
+        }
+
+        .container h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .container ul {
+            text-align: left;
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin: 20px 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .container ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .container ul li::before {
+            content: '\2713';
+            position: absolute;
+            left: 0;
+            color: #ff5722;
+            font-size: 1.5em;
+        }
+
+        .container a {
+            text-decoration: none;
+            background: #ff5722;
+            color: #fff;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .container a:hover {
+            background: #e64a19;
+            transform: scale(1.05);
+        }
+
+        .container button {
+            margin-top: 20px;
+            background: transparent;
+            border: 2px solid #ff5722;
+            color: #ff5722;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .container button:hover {
+            background: #ff5722;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>KBC Instructions</h1>
+        <ul>
+            <li>You must register with your name and a photo (either captured or uploaded) to begin the quiz.</li>
+            <li>The quiz consists of 7 questions, randomly selected from the database.</li>
+            <li>Each correct answer awards you points. The points increase as you answer each question.</li>
+            <li>Incorrect answers will immediately end the game and redirect you to the results page.</li>
+            <li>You can use a clue to eliminate two incorrect options, but it will cost you 5,000 points.</li>
+            <li>Ensure you answer all questions before the timer runs out! If you take too long, you will be redirected to the results page.</li>
+            <!-- <li>Your final score will be displayed at the end of the quiz, along with your name and photo.</li> -->
+            <li>The goal is to answer all 7 questions correctly to earn the highest possible score!</li>
+      
+        </ul>
+        <a href="/register">Start Quiz</a>
+        <button onclick="window.history.back()">Back</button>
+    </div>
+    <!-- Add this code just inside the <body> tag -->
+
+<audio autoplay loop>
+    <source src="/static/song/background.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
+
+<script>
+    // Check if the current page is the result page
+    if (window.location.pathname === '/result') {
+        document.querySelector("audio").pause(); // Pause if on result page
+    }
+</script>
+
+</body>
+</html>
